@@ -1,11 +1,12 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import {
   type I18nDictionary,
   type Language,
   dictionaries,
   languageStorageKey,
+  supportedLanguages,
 } from "@/lib/i18n";
 
 type I18nContextValue = {
@@ -25,6 +26,22 @@ export default function I18nProvider({
 }) {
   // Keep the initial language deterministic across server/client to avoid hydration mismatch.
   const [language, setLanguage] = useState<Language>(initialLanguage);
+
+  useEffect(() => {
+    const stored = localStorage.getItem(languageStorageKey);
+    const cookieMatch = document.cookie
+      .split("; ")
+      .find(row => row.startsWith(`${languageStorageKey}=`))
+      ?.split("=")[1];
+    const preferred = stored ?? cookieMatch;
+    if (preferred && supportedLanguages.includes(preferred as Language) && preferred !== language) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLanguage(preferred as Language);
+      document.documentElement.lang = preferred;
+      return;
+    }
+    document.documentElement.lang = language;
+  }, [language]);
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);
