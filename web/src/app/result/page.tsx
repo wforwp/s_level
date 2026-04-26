@@ -78,11 +78,8 @@ export default function ResultPage() {
     <main className="mx-auto flex min-h-screen w-full max-w-md items-center bg-zinc-50 p-4">
       <section className="w-full">
         <h1 className="mb-1 text-xl font-bold text-zinc-900">{t.resultTitle}</h1>
-        <p className="mb-4 text-sm text-zinc-600">
-          {t.resultSubtitle.replace("{nickname}", profile.nickname)}
-        </p>
 
-        <div ref={cardRef}>
+        <div ref={cardRef} className="mt-4">
           <ResultCard profile={profile} score={score} level={level} />
         </div>
 
