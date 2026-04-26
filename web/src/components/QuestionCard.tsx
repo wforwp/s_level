@@ -126,7 +126,7 @@ export default function QuestionCard({
     const selectedLabel =
       selectedIndex >= 0
         ? getLocalizedOptionText(question.options[selectedIndex].text, language)
-        : t.selectAgePlaceholder;
+        : getLocalizedOptionText(question.options[0].text, language);
 
     return (
       <section className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">

@@ -1,20 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import IntroForm from "@/components/IntroForm";
 import { useI18n } from "@/components/I18nProvider";
 import { dictionaries, supportedLanguages, type Language } from "@/lib/i18n";
-import { hasGatePassed, setGatePassed } from "@/lib/storage";
+import { setGatePassed } from "@/lib/storage";
 
 export default function Home() {
   const { language, setLanguage, t } = useI18n();
   const [gateOpen, setGateOpen] = useState(true);
+  const didSetDefaultLanguage = useRef(false);
 
   useEffect(() => {
-    // Keep initial server/client render deterministic, then sync from sessionStorage.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setGateOpen(!hasGatePassed());
-  }, []);
+    // Always start gate with English selected by default.
+    if (didSetDefaultLanguage.current) return;
+    didSetDefaultLanguage.current = true;
+    setLanguage("en");
+  }, [setLanguage]);
 
   useEffect(() => {
     document.body.style.overflow = gateOpen ? "hidden" : "";

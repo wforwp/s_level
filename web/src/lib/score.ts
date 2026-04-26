@@ -54,9 +54,9 @@ const questionWeightMap: Record<string, number> = {
   "p5-q8": 1.35,
   // page 6
   "p6-q1": 1.25,
-  "p6-q2": 1.35,
-  "p6-q3": 1.15,
-  "p6-q4": 1.35,
+  "p6-q2": 1.5,
+  "p6-q3": 1.25,
+  "p6-q4": 1.45,
   "p6-q5": 1.55,
   "p6-q6": 1.6,
 };

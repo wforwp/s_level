@@ -47,33 +47,33 @@ const firstSexAgeOptions: Option[] = Array.from({ length: 17 }, (_, i) => {
   };
 });
 
-const partnerCountOptions: Option[] = [
-  { id: "none", text: "경험 없음", score: 0 },
-  { id: "two", text: "2명", score: 1 },
-  { id: "three", text: "3명", score: 2 },
-  { id: "four", text: "4명", score: 3 },
-  { id: "five-plus", text: "5명 이상", score: 4 },
-];
+const partnerCountOptions: Option[] = Array.from({ length: 11 }, (_, i) => {
+  const partnerCountScoreMap = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 22];
+  return {
+    id: i < 10 ? `pair-${i}` : "pair-10-plus",
+    text: i === 0 ? "0명(경험없음)" : i < 10 ? `${i}명` : "10명 이상",
+    score: partnerCountScoreMap[i],
+  };
+});
 
 const weeklyFrequencyOptions: Option[] = [
   { id: "d1", text: "1일", score: 0 },
-  { id: "d2", text: "2일", score: 1 },
-  { id: "d3", text: "3일", score: 2 },
-  { id: "d4", text: "4일", score: 3 },
-  { id: "d5", text: "5일", score: 4 },
-  { id: "d6", text: "6일", score: 5 },
-  { id: "d7", text: "7일", score: 6 },
+  { id: "d2", text: "2일", score: 2 },
+  { id: "d3", text: "3일", score: 4 },
+  { id: "d4", text: "4일", score: 6 },
+  { id: "d5", text: "5일", score: 8 },
+  { id: "d6", text: "6일", score: 10 },
+  { id: "d7", text: "7일", score: 12 },
 ];
 
-const lifetimePartnerOptions: Option[] = [
-  { id: "none", text: "경험없음", score: 0 },
-  { id: "one", text: "1명", score: 1 },
-  { id: "two", text: "2명", score: 2 },
-  { id: "three", text: "3명", score: 3 },
-  { id: "four", text: "4명", score: 4 },
-  { id: "five-plus", text: "5명 이상", score: 5 },
-  { id: "ten-plus", text: "10명 이상", score: 6 },
-];
+const lifetimePartnerOptions: Option[] = Array.from({ length: 20 }, (_, i) => {
+  const count = i + 1;
+  return {
+    id: count < 20 ? `count-${count}` : "count-20-plus",
+    text: count < 20 ? `${count}명` : "20명 이상",
+    score: count - 1,
+  };
+});
 
 const exposurePlaceOptions: Option[] = [
   { id: "stairs", text: "건물 계단", score: 1 },
@@ -347,18 +347,21 @@ export const questionsByPage: Record<Question["page"], Question[]> = {
       page: 6,
       text: "나는 동시에 2명 이상의 파트너와 섹스를 해본 적이 있다",
       options: partnerCountOptions,
+      inputType: "select",
     },
     {
       id: "p6-q3",
       page: 6,
       text: "파트너가 있을 때 일주일 평균 관계 횟수는?",
       options: weeklyFrequencyOptions,
+      inputType: "select",
     },
     {
       id: "p6-q4",
       page: 6,
       text: "나는 여태까지 ( )명의 사람과 섹스를 해봤다",
       options: lifetimePartnerOptions,
+      inputType: "select",
     },
     {
       id: "p6-q5",
@@ -414,6 +417,18 @@ export function getLocalizedOptionText(
     if (language === "fr") return "30 ans ou plus";
     if (language === "es") return "30 años o más";
     if (language === "en") return "30 or older";
+  }
+  if (text === "20명 이상") {
+    if (language === "ja") return "20人以上";
+    if (language === "fr") return "20 personnes ou plus";
+    if (language === "es") return "20 personas o más";
+    if (language === "en") return "20 or more";
+  }
+  if (text === "0명(경험없음)") {
+    if (language === "ja") return "0人（経験なし）";
+    if (language === "fr") return "0 personne (aucune expérience)";
+    if (language === "es") return "0 personas (sin experiencia)";
+    if (language === "en") return "0 (no experience)";
   }
 
   const ageMatch = text.match(/^(\d+)세$/);
