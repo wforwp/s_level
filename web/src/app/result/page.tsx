@@ -7,12 +7,14 @@ import { useI18n } from "@/components/I18nProvider";
 import ResultCard from "@/components/ResultCard";
 import ShareButtons from "@/components/ShareButtons";
 import { getLevelByScore } from "@/lib/score";
-import { clearTestSession, getProfile, getScore, hasGatePassed } from "@/lib/storage";
+import { emitResultSnapshot } from "@/lib/signals/emitResultSnapshot";
+import { clearTestSession, getAnswers, getProfile, getScore, hasGatePassed } from "@/lib/storage";
 
 export default function ResultPage() {
   const router = useRouter();
   const { t, language } = useI18n();
   const cardRef = useRef<HTMLDivElement>(null);
+  const didEmitSnapshot = useRef(false);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export default function ResultPage() {
     const loadedProfile = getProfile();
     const loadedScore = getScore();
     if (!loadedProfile || loadedScore === null) {
-      router.replace("/intro");
+      router.replace("/");
       return;
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -32,10 +34,31 @@ export default function ResultPage() {
 
   const profile = isReady ? getProfile() : null;
   const score = isReady ? getScore() : null;
+  const level = score !== null ? getLevelByScore(score, language) : null;
+  const summaryPlain = level ? level.summary.replace(/^\[(.*)\]$/, "$1") : "";
+  const copyTitle = "<걸레 등급 테스트 결과>";
+  const copyBody =
+    profile && level
+      ? `${profile.nickname}님은 ${level.title}네요.\n\n(${summaryPlain}) ${level.description}`
+      : "";
 
-  if (!isReady || !profile || score === null) return null;
+  useEffect(() => {
+    if (!isReady || !profile || score === null || !level || didEmitSnapshot.current) return;
+    const answers = getAnswers();
+    didEmitSnapshot.current = true;
+    void emitResultSnapshot({
+      nickname: profile.nickname,
+      age: profile.age,
+      score,
+      level: level.level,
+      levelTitle: level.title,
+      levelSummary: summaryPlain,
+      locale: language,
+      answers,
+    });
+  }, [isReady, language, level, profile, score, summaryPlain]);
 
-  const level = getLevelByScore(score, language);
+  if (!isReady || !profile || score === null || !level) return null;
 
   const handleSaveImage = async () => {
     if (!cardRef.current) return;
@@ -48,7 +71,7 @@ export default function ResultPage() {
 
   const handleReset = () => {
     clearTestSession();
-    router.push("/intro");
+    router.push("/");
   };
 
   return (
@@ -66,11 +89,8 @@ export default function ResultPage() {
         <div className="mt-4">
           <ShareButtons
             onSaveImage={handleSaveImage}
-            title={t.shareTitle}
-            text={t.shareText
-              .replace("{nickname}", profile.nickname)
-              .replace("{level}", level.level)
-              .replace("{title}", level.title)}
+            title={copyTitle}
+            text={copyBody}
           />
         </div>
 

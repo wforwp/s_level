@@ -34,3 +34,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Supabase Result Storage Setup
+
+1. Open Supabase SQL Editor and run:
+   - `supabase/result_events.sql`
+2. In your deployment environment, set these variables:
+   - `NEXT_PUBLIC_DATA_PLANE_URL` (example: `https://<project-ref>.supabase.co`)
+   - `NEXT_PUBLIC_DATA_PLANE_TOKEN` (anon public key)
+   - `NEXT_PUBLIC_DATA_PLANE_STREAM` (`result_events`)
+
+The app emits a result snapshot event on the result page and stores it through Supabase REST when these variables are present.

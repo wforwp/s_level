@@ -118,26 +118,46 @@ export default function QuestionCard({
   }
 
   if (question.inputType === "select") {
+    const selectedIndex =
+      typeof value === "number"
+        ? question.options.findIndex((option) => option.score === value)
+        : -1;
+    const sliderIndex = selectedIndex >= 0 ? selectedIndex : 0;
+    const selectedLabel =
+      selectedIndex >= 0
+        ? getLocalizedOptionText(question.options[selectedIndex].text, language)
+        : t.selectAgePlaceholder;
+
     return (
       <section className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
         <p className="mb-4 text-base font-semibold text-zinc-900">
           {questionNumber ? `${questionNumber}. ` : ""}
           {getLocalizedQuestionText(question.text, language)}
         </p>
-        <select
-          className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-3 text-sm text-zinc-900"
-          value={typeof value === "number" ? value : ""}
-          onChange={event => onSelect(Number(event.target.value))}
-        >
-          <option value="" disabled>
-            {t.selectAgePlaceholder}
-          </option>
-          {question.options.map(option => (
-            <option key={option.id} value={option.score}>
-              {getLocalizedOptionText(option.text, language)}
-            </option>
-          ))}
-        </select>
+        <p className="mb-3 rounded-lg bg-zinc-100 px-3 py-2 text-center text-sm font-semibold text-zinc-800">
+          {selectedLabel}
+        </p>
+        <input
+          type="range"
+          min={0}
+          max={question.options.length - 1}
+          step={1}
+          value={sliderIndex}
+          onChange={(event) => {
+            const option = question.options[Number(event.target.value)];
+            if (option) onSelect(option.score);
+          }}
+          className="h-9 w-full accent-zinc-900"
+        />
+        <div className="mt-2 flex justify-between text-xs text-zinc-500">
+          <span>{getLocalizedOptionText(question.options[0].text, language)}</span>
+          <span>
+            {getLocalizedOptionText(
+              question.options[question.options.length - 1].text,
+              language,
+            )}
+          </span>
+        </div>
       </section>
     );
   }

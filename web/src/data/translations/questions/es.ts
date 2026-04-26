@@ -22,14 +22,14 @@ export const questionTextEs: Record<string, string> = {
     "Disfruto usar ropa reveladora y llamar la atención de otras personas.",
   "노브라로 외출하는걸 좋아한다": "Me gusta salir sin sujetador.",
   "노팬티로 외출하는걸 좋아한다": "Me gusta salir sin ropa interior.",
-  "공공장소에서 몰래 옷을 벗어 본 적이 있다":
-    "He llegado a desvestirme en secreto en lugares públicos.",
+  "공공장소에서 몰래 옷을 벗는 것을 즐긴다":
+    "Disfruto desvestirme en secreto en lugares públicos.",
   "딜도로 자위하는걸 좋아한다": "Me gusta masturbarme con dildo.",
   "우머나이저로 자위하는걸 좋아한다": "Me gusta masturbarme con Womanizer.",
-  "원격 토이를 착용한채로 돌아다닌 적이 있다":
-    "He caminado llevando un juguete remoto puesto.",
-  "집에서 다른 사람이 있는데 몰래 자위를 한 적이 있다":
-    "He masturbado en casa en secreto mientras había otras personas.",
+  "원격 토이를 착용한채로 돌아다닌 것을 즐긴다":
+    "Disfruto caminar llevando un juguete remoto puesto.",
+  "집에서 다른 사람이 있는데 몰래 자위하는 것을 즐긴다":
+    "Disfruto masturbarme en secreto en casa cuando hay otras personas.",
   "원나잇 섹스를 좋아한다": "Me gustan los encuentros de una noche.",
   "야외에서 섹스를 하는걸 좋아한다": "Me gusta tener sexo al aire libre.",
   "카섹스를 좋아한다": "Me gusta el sexo en el coche.",

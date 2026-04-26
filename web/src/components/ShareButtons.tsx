@@ -10,15 +10,11 @@ type ShareButtonsProps = {
 
 export default function ShareButtons({ onSaveImage, title, text }: ShareButtonsProps) {
   const { t } = useI18n();
+  const shareUrl = "https://s-level-test.pages.dev/";
 
   const handleShare = async () => {
-    const url = window.location.href;
-    if (navigator.share) {
-      await navigator.share({ title, text, url });
-      return;
-    }
-
-    await navigator.clipboard.writeText(url);
+    const shareText = `${title}\n${text}\n${shareUrl}`;
+    await navigator.clipboard.writeText(shareText);
     alert(t.shareLinkCopied);
   };
 

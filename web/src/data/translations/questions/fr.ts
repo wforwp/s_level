@@ -24,15 +24,15 @@ export const questionTextFr: Record<string, string> = {
     "J'aime porter des vêtements très révélateurs et attirer les regards.",
   "노브라로 외출하는걸 좋아한다": "J'aime sortir sans soutien-gorge.",
   "노팬티로 외출하는걸 좋아한다": "J'aime sortir sans sous-vêtements.",
-  "공공장소에서 몰래 옷을 벗어 본 적이 있다":
-    "Il m'est déjà arrivé de me déshabiller discrètement dans un lieu public.",
+  "공공장소에서 몰래 옷을 벗는 것을 즐긴다":
+    "J'aime me déshabiller discrètement dans des lieux publics.",
   "딜도로 자위하는걸 좋아한다": "J'aime me masturber avec un dildo.",
   "우머나이저로 자위하는걸 좋아한다":
     "J'aime me masturber avec un stimulateur type Womanizer.",
-  "원격 토이를 착용한채로 돌아다닌 적이 있다":
-    "J'ai déjà circulé en portant un jouet à distance.",
-  "집에서 다른 사람이 있는데 몰래 자위를 한 적이 있다":
-    "Je me suis déjà masturbé(e) en secret à la maison alors qu'il y avait d'autres personnes.",
+  "원격 토이를 착용한채로 돌아다닌 것을 즐긴다":
+    "J'aime me promener en portant un jouet télécommandé.",
+  "집에서 다른 사람이 있는데 몰래 자위하는 것을 즐긴다":
+    "J'aime me masturber en secret à la maison quand d'autres personnes sont présentes.",
   "원나잇 섹스를 좋아한다": "J'aime les plans d'un soir.",
   "야외에서 섹스를 하는걸 좋아한다": "J'aime avoir des rapports en extérieur.",
   "카섹스를 좋아한다": "J'aime faire l'amour en voiture.",

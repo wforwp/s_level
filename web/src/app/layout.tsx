@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "모바일 심리테스트",
-  description: "점수 기반 레벨 판정 심리테스트",
+  title: "dirty mind test | 걸레 등급 테스트",
+  description: "dirty mind test / 걸레 등급 테스트",
 };
 
 export default function RootLayout({

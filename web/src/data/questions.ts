@@ -42,7 +42,7 @@ const firstSexAgeOptions: Option[] = Array.from({ length: 17 }, (_, i) => {
   const age = 14 + i;
   return {
     id: `age-${age}`,
-    text: `${age}세`,
+    text: age === 14 ? "14세 이하" : age === 30 ? "30세 이상" : `${age}세`,
     score: 30 - age,
   };
 });
@@ -211,7 +211,7 @@ export const questionsByPage: Record<Question["page"], Question[]> = {
     {
       id: "p3-q4",
       page: 3,
-      text: "공공장소에서 몰래 옷을 벗어 본 적이 있다",
+      text: "공공장소에서 몰래 옷을 벗는 것을 즐긴다",
       options: fiveOptions,
     },
     {
@@ -229,13 +229,13 @@ export const questionsByPage: Record<Question["page"], Question[]> = {
     {
       id: "p3-q7",
       page: 3,
-      text: "원격 토이를 착용한채로 돌아다닌 적이 있다",
+      text: "원격 토이를 착용한채로 돌아다닌 것을 즐긴다",
       options: fiveOptions,
     },
     {
       id: "p3-q8",
       page: 3,
-      text: "집에서 다른 사람이 있는데 몰래 자위를 한 적이 있다",
+      text: "집에서 다른 사람이 있는데 몰래 자위하는 것을 즐긴다",
       options: fiveOptions,
     },
   ],
@@ -402,6 +402,19 @@ export function getLocalizedOptionText(
   language: Language,
 ): string {
   if (language === "ko") return text;
+
+  if (text === "14세 이하") {
+    if (language === "ja") return "14歳以下";
+    if (language === "fr") return "14 ans ou moins";
+    if (language === "es") return "14 años o menos";
+    if (language === "en") return "14 or younger";
+  }
+  if (text === "30세 이상") {
+    if (language === "ja") return "30歳以上";
+    if (language === "fr") return "30 ans ou plus";
+    if (language === "es") return "30 años o más";
+    if (language === "en") return "30 or older";
+  }
 
   const ageMatch = text.match(/^(\d+)세$/);
   const dayMatch = text.match(/^(\d+)일$/);

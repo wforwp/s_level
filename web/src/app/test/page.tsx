@@ -24,7 +24,7 @@ export default function TestPage() {
     }
     const loadedProfile = getProfile();
     if (!loadedProfile) {
-      router.replace("/intro");
+      router.replace("/");
       return;
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect
